@@ -1,16 +1,272 @@
-public interface IHttpClientHelper<T>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body
+        {
+            background-color: whitesmoke;
+        }
 
-    {
+        .topnav
+        {
+            overflow: hidden;
+            background-color: rgb(29,29,27);
+        }
 
-        Task<T> GetSingleItemRequest(string apiUrl,CancellationToken token = default(CancellationToken));
+            .topnav a
+            {
+                float: left;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                font-family: Verdana;
+                /*font-weight:bold;*/
+                font-size: 15px;
+                height: 15px;
+            }
 
-        Task<T[]> GetMultipleItemsRequest(string apiUrl, CancellationToken token = default(CancellationToken));
+                .topnav a:hover
+                {
+                    background-color: inherit; /*#ddd;*/
+                    color: black;
+                }
 
-        Task<T> PostRequest(string apiUrl, T postObject,CancellationToken token = default(CancellationToken));
+        /*.emaillink2 a:hover
+                {   
+                    text-decoration: none;
+                    color: red;
+                }*/
 
-        Task PutRequest(string apiUrl, T putObject, CancellationToken token = default(CancellationToken));
+        /*.topnav a:hover img {
+                    background-color: none;
+                border: none !important;
+                display: block;
+                }*/
+        /*.icon-bar 
+                {
+                  width: 100%;  Full-width 
+                  background-color: white;  Dark-grey background 
+                  overflow: auto;  Overflow due to float 
+                }
+                
+                .icon-bar a 
+                {
+                  float: left;  Float links side by side 
+                  text-align: center;  Center-align text 
+                  width: 20%;  Equal width (5 icons with 20% width each = 100%) 
+                  padding: 12px 0;  Some top and bottom padding 
+                  transition: all 0.3s ease;  Add transition for hover effects 
+                  color: white;  White text color 
+                  font-size: 36px;  Increased font size 
+                }
 
-        Task DeleteRequest(string apiUrl, CancellationToken token = default(CancellationToken));
+                .icon-bar a:hover {
+                  background-color: #000;  Add a hover color 
+                }
 
-    }
+                .active {
+                  background-color: #4CAF50;  Add an active/current color 
+                }*/
+        /*.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}*/
+        /* Style the tab */
+        .tab
+        {
+            overflow: hidden;
+            /*border: none;*/
+            background-color: none;
+        }
 
+            /* Style the buttons inside the tab */
+            .tab button
+            {
+                background-color: inherit;
+                float: left;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                padding: 14px 16px;
+                transition: 0.3s;
+                font-size: 15px;
+            }
+
+                /* Change background color of buttons on hover */
+                .tab button:hover
+                {
+                    /*background-color: #ddd;*/
+                    /*color: red;*/
+                    text-decoration: none;
+                    font-weight: bold;
+                    /*text-decoration: underline;*/
+                    border-bottom: 3px solid #1A73E8;
+                }
+
+                /* Create an active/current tablink class */
+                .tab button.active
+                {
+                    background-color: #ccc;
+                }
+
+        /* Style the tab content */
+        .tabcontent
+        {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+
+        .flex-container
+        {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            background-color: whitesmoke;
+            flex-wrap: wrap;
+            align-content: space-between;
+        }
+
+            .flex-container > div
+            {
+                /*background-color: #f1f1f1;*/
+                background: linear-gradient(to bottom, white 0%,white 55%,#ffffff 50%,peachpuff 50%,peachpuff 100%);
+                margin: 10px;
+                padding: 20px;
+                font-size: 18px;
+                font-family: 'Times New Roman';
+                font-style: normal;
+                height: 120px;
+                width: 120px;
+                font-stretch: normal;
+                text-align: center;
+            }
+
+        /*.flex-container1 body  {
+                background: linear-gradient(to bottom, black 0%,black 50%,#000000 50%,white 50%,white 100%);  W3C 
+                }*/
+
+        .flex-container1
+        {
+            display: flex;
+            justify-content: flex-start;
+            align-items: stretch;
+            background-color: whitesmoke;
+            flex-wrap: wrap;
+            flex-flow: row wrap;
+            align-content: space-between;
+            /*background: linear-gradient(to bottom, black 0%,black 50%,#000000 50%,white 50%,white 100%); /* W3C */
+        }
+
+            .flex-container1 > div
+            {
+                /*background-color: #f1f1f1;*/
+                background: linear-gradient(to bottom, white 0%,white 55%,#ffffff 50%,peachpuff 50%,peachpuff 100%);
+                margin: 10px;
+                padding: 20px;
+                font-family: 'Times New Roman';
+                font-style: normal;
+                font-size: 18px;
+                height: 100px;
+                width: 80px;
+                font-stretch: normal;
+                text-align: center;
+            }
+
+        .btn
+        {
+            background-color: whitesmoke;
+            border: none;
+            color: grey;
+            /*padding: 12px 12px;*/
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+            /* Darker background on mouse-over */
+            .btn:hover
+            {
+                background-color: none;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="topnav">
+        <!-- <a class="icon-bar" href="#iconbar"></a>-->
+        <!--<a class="active" href="#dashboard">Dashboard</a>-->
+        <!--<a href="#sonarqubeimg" class="emaillink2">-->
+        <a href="https://www.sonarqube.org/">
+            <img src="Images/sonarqube.png" alt="www.sonarcube.com" style="border-style: none; border-color: inherit; border-width: 0; width: auto; height: 25px; margin-top: 0px;"></a>
+        <a href="#dashboard">Dashboard 
+            <i class="fa fa-caret-down" style="display: inline;"></i>
+            <i class="fa fa-caret-up" style="display: none;"></i>
+        </a>
+        <a href="#issues">Issues</a>
+        <a href="#measures">Measures</a>
+        <a href="#rules">Rules</a>
+        <a href="#qualityprofiles">Quality Profiles</a>
+        <a href="#qualitychecks">Quality Checks</a>
+    </div>
+
+    <div style="padding-left: 16px">
+        <h2>domibus</h2>
+    </div>
+
+    <div class="tab">
+        <div class="btn">
+            <button class="btn"><i class="fa fa-home"></i></button>
+        </div>
+        <button class="tablinks" onclick="openEvents(event, 'technicaldebt')">Technical Debt</button>
+        <button class="tablinks" onclick="openEvents(event, 'coverage')">Coverage</button>
+        <button class="tablinks" onclick="openEvents(event, 'duplications')">Duplications</button>
+        <button class="tablinks" onclick="openEvents(event, 'structure')">Structure</button>
+        <button class="tablinks" onclick="openEvents(event, 'dashboards')">Dashboards</button>
+        <button class="tablinks" onclick="openEvents(event, 'component')">Component</button>
+    </div>
+
+    <div id="technicaldebt" class="tabcontent">
+        <h3>Technical Debt</h3>
+    </div>
+
+    <div id="coverage" class="tabcontent">
+        <h3>Coverage</h3>
+    </div>
+
+    <div id="duplications" class="tabcontent">
+        <h3>Duplications</h3>
+    </div>
+
+    <div id="structure" class="tabcontent">
+        <h3>Structure</h3>
+    </div>
+
+    <div id="dashboards" class="tabcontent">
+        <h3>Dashboards</h3>
+    </div>
+
+    <div id="component" class="tabcontent">
+        <h3>Components</h3>
+    </div>
+
+    <div class="flex-container">
+        <div>Technical Debt</div>
+        <div>Technical Debt Ratio</div>
+        <div>Issues</div>
+        <div>Test</div>
+    </div>
+
+    <div class="flex-container1">
+        <div>Blocker</div>
+        <div>Critical</div>
+        <div>Major</div>
+        <div>Minor</div>
+        <div>Info</div>
+    </div>
+
+</body>
+</html>
